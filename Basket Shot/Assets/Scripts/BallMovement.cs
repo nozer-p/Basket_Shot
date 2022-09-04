@@ -16,20 +16,18 @@ public class BallMovement : MonoBehaviour
     public void Move(float delta)
     {
         rb.bodyType = RigidbodyType2D.Dynamic;
-        //rb.simulated = true;
         rb.velocity = transform.up * delta * forceValue;
     }
 
     public void StopInBasket()
     {
-        //rb.simulated = false;
         rb.bodyType = RigidbodyType2D.Static;
         transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
-    private void Update()
+    public float GetForceValue()
     {
-        
+        return forceValue;
     }
     
     public void Freeze(bool log)

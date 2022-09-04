@@ -26,6 +26,7 @@ public class SwipeDetection : MonoBehaviour
 
     [SerializeField] private float offset;
     [SerializeField] private float speed;
+    [SerializeField] private float speedTrajectory;
 
 
     private void Start()
@@ -46,7 +47,7 @@ public class SwipeDetection : MonoBehaviour
             }
             else if (Input.GetMouseButtonUp(0))
             {
-                ResetSwipe();
+                if (inBasket != null) ResetSwipe();
             }
         }
         else
@@ -61,7 +62,7 @@ public class SwipeDetection : MonoBehaviour
                 }
                 else if (Input.GetTouch(0).phase == TouchPhase.Canceled || Input.GetTouch(0).phase == TouchPhase.Ended)
                 {
-                    ResetSwipe();
+                    if (inBasket != null) ResetSwipe();
                 }
             }
         }
@@ -131,6 +132,9 @@ public class SwipeDetection : MonoBehaviour
                 //basket.transform.rotation = Quaternion.Euler(0f, 0f, angle + offset);
                 basket.transform.rotation = Quaternion.Lerp(basket.transform.rotation, Quaternion.Euler(0f, 0f, angle + offset), speed * Time.deltaTime);
                 tapPosOld = tapPos;
+
+                Trajectory.instance.RemBalls();
+                Trajectory.instance.predict(prefabBall, ball.gameObject.transform.position, ball.gameObject.transform.up * delta * ball.GetForceValue());
             }
         }
     }

@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 5692139572945991776}
   - component: {fileID: 5692139572945991778}
   - component: {fileID: 5692139572945991789}
-  - component: {fileID: 614458765965774964}
+  - component: {fileID: 5089718715490817152}
   m_Layer: 0
   m_Name: InBasket
   m_TagString: Untagged
@@ -139,7 +139,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5692139572945991777}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.763, z: 0}
+  m_LocalPosition: {x: 0, y: -0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6114014643277321982}
@@ -157,16 +157,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8928f6c1b4f76ea4cbcc73ba782ccf93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftBasket: 0
-  joinBasket: 0
   speed: 25
-  speedMove: 10
+  speedMove: 8
+  speedRotate: 33
   basket: {fileID: 8749119131452213054}
   ballPosInBasket: {fileID: 1198530293}
   grid: {fileID: 6764923160043842984}
   joinForce: {x: 1, y: 1.2, z: 1}
   leftForce: {x: 1, y: 0.85, z: 1}
-  startTimeBtwFall: 0.3
+  startTimeBtwFall: 0.1
 --- !u!50 &5692139572945991789
 Rigidbody2D:
   serializedVersion: 4
@@ -188,8 +187,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!68 &614458765965774964
-EdgeCollider2D:
+--- !u!60 &5089718715490817152
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -202,14 +201,23 @@ EdgeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   m_Points:
-  - {x: -0.2, y: 0}
-  - {x: 0.2, y: 0}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
+    m_Paths:
+    - - {x: 0, y: 0.14132804}
+      - {x: -0.5378107, y: 0.19087657}
+      - {x: -0.37922233, y: 0.050473273}
+      - {x: 0.004160732, y: -0.117938995}
+      - {x: 0.4103293, y: 0.055311203}
+      - {x: 0.5268497, y: 0.1863662}
 --- !u!1 &5692139573395580477
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,7 +231,7 @@ GameObject:
   - component: {fileID: 5692139573395580478}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -251,7 +259,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 5692139573395580477}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 52199259dc300774ab3f0664761def42, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -267,25 +275,27 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.78487295, y: -0.43776795}
-      - {x: -0.9204095, y: -0.24875829}
-      - {x: -0.6841438, y: -0.65819484}
-      - {x: -0.3999528, y: -0.8619576}
-      - {x: -0.12399417, y: -0.9518276}
-      - {x: 0.10990338, y: -0.9442988}
-      - {x: 0.40763658, y: -0.87185955}
-      - {x: 0.6552763, y: -0.7071029}
-      - {x: 0.78265524, y: -0.55349404}
-      - {x: 0.9008799, y: -0.30165127}
-      - {x: 0.83468723, y: -0.33776486}
-      - {x: 0.7540979, y: -0.5313613}
-      - {x: 0.6013259, y: -0.7103321}
-      - {x: 0.40879306, y: -0.83746076}
-      - {x: 0.21693613, y: -0.8922296}
-      - {x: 0.07397859, y: -0.92338645}
-      - {x: -0.11060902, y: -0.9233935}
-      - {x: -0.38354644, y: -0.82884425}
-      - {x: -0.67354435, y: -0.6204019}
+    - - {x: -0.78487295, y: -0.28259012}
+      - {x: -0.9309128, y: -0.22031043}
+      - {x: -0.82962304, y: -0.5199896}
+      - {x: -0.6637122, y: -0.7122069}
+      - {x: -0.3902542, y: -0.9056014}
+      - {x: -0.12399417, y: -0.96241874}
+      - {x: 0.1231423, y: -0.9681288}
+      - {x: 0.4314666, y: -0.88509846}
+      - {x: 0.66321963, y: -0.7388763}
+      - {x: 0.79059863, y: -0.5773241}
+      - {x: 0.91941434, y: -0.2222179}
+      - {x: 0.8240961, y: -0.29010475}
+      - {x: 0.71967673, y: -0.48634905}
+      - {x: 0.6198604, y: -0.6441375}
+      - {x: 0.38761082, y: -0.80568737}
+      - {x: 0.206345, y: -0.8842862}
+      - {x: 0.111285836, y: -0.89678955}
+      - {x: -0.0025886297, y: -0.9041919}
+      - {x: -0.12384793, y: -0.88367677}
+      - {x: -0.35202593, y: -0.8045977}
+      - {x: -0.60322946, y: -0.6204019}
 --- !u!50 &5692139573395580478
 Rigidbody2D:
   serializedVersion: 4
@@ -294,7 +304,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5692139573395580477}
-  m_BodyType: 1
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -302,7 +312,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 52199259dc300774ab3f0664761def42, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -354,7 +364,7 @@ GameObject:
   - component: {fileID: 5692139574092797800}
   m_Layer: 0
   m_Name: Basket Ring 0 Bottom
-  m_TagString: Untagged
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -433,7 +443,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 7344641747073251214}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 52199259dc300774ab3f0664761def42, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -449,7 +459,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 7344641747073251214}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 52199259dc300774ab3f0664761def42, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

@@ -5,11 +5,12 @@ using UnityEngine;
 public class InBasket : MonoBehaviour
 {
     private bool inBasket;
-    [SerializeField] private bool leftBasket;
-    [SerializeField] private bool joinBasket;
+    private bool leftBasket;
+    private bool joinBasket;
 
     [SerializeField] private float speed;
     [SerializeField] private float speedMove;
+    [SerializeField] private float speedRotate;
 
     [SerializeField] private GameObject basket;
     [SerializeField] private GameObject ballPosInBasket;
@@ -71,8 +72,8 @@ public class InBasket : MonoBehaviour
         }
         else if (timeBtwFall > 0f)
         {
-            timeBtwFall -= Time.deltaTime; 
-        }
+            timeBtwFall -= Time.deltaTime;
+        } 
     }
 
     private void GetBack()
@@ -107,7 +108,6 @@ public class InBasket : MonoBehaviour
                         ballPosInBasket.transform.localPosition = new Vector3(0f, -0.6f + 1f - grid.transform.localScale.y, 0f);
                         ball.transform.position = ballPosInBasket.transform.position;
                         ball.transform.rotation = basket.transform.rotation;
-                        //ballPosInBasket.transform.localPosition = new Vector3(0f, -0.5f - 0.33f * delta / maxDeadZone, 0f);
 
                         if (grid.transform.localScale.y >= joinForce.y - 0.01f)
                         {
@@ -121,8 +121,14 @@ public class InBasket : MonoBehaviour
                         ball.transform.position = ballPosInBasket.transform.position;
                         ball.transform.rotation = basket.transform.rotation;
 
-                        if (grid.transform.localScale.y <= 1.01f)
+                        if (basket.transform.rotation.eulerAngles.z <= -1f || basket.transform.rotation.eulerAngles.z >= 1f)
                         {
+                            basket.transform.rotation = Quaternion.Lerp(basket.transform.rotation, Quaternion.Euler(0f, 0f, 0f), speedRotate * Time.deltaTime);
+                        }
+
+                        if (grid.transform.localScale.y <= 1.01f && basket.transform.rotation.eulerAngles.z >= -1f && basket.transform.rotation.eulerAngles.z <= 1f)
+                        {
+                            basket.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                             joinBasket = false;
                         }
                     }
