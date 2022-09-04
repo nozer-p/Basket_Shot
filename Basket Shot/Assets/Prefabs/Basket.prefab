@@ -163,6 +163,9 @@ MonoBehaviour:
   basket: {fileID: 8749119131452213054}
   ballPosInBasket: {fileID: 1198530293}
   grid: {fileID: 6764923160043842984}
+  rings:
+  - {fileID: 4154350694126804546}
+  - {fileID: 3556440331337074808}
   joinForce: {x: 1, y: 1.2, z: 1}
   leftForce: {x: 1, y: 0.85, z: 1}
   startTimeBtwFall: 0.1
@@ -423,12 +426,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 2209dd6e7150b8d438ce4158d4cdd1c0, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 25ab60dee900e4a40b4ac556b08065b9, type: 3}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.0923078, y: 0.30769232}
+  m_Size: {x: 1.36, y: 0.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -537,12 +540,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2209dd6e7150b8d438ce4158d4cdd1c0, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 25ab60dee900e4a40b4ac556b08065b9, type: 3}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.0923078, y: 0.30769232}
+  m_Size: {x: 1.36, y: 0.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

@@ -88,7 +88,7 @@ public class SwipeDetection : MonoBehaviour
     {
         swipeDelta = Vector2.zero;
         
-        if (!isMobile && Input.GetMouseButtonUp(0))
+        if (!isMobile && Input.GetMouseButton(0))
         {
             swipeDelta = (Vector2)Input.mousePosition - tapPos;
         }
@@ -106,14 +106,6 @@ public class SwipeDetection : MonoBehaviour
             delta = swipeDelta.magnitude;
         }
 
-        /*
-        if (basket != null)
-        {
-            grid.transform.localScale = new Vector3(1f, 1f + 0.45f * delta / maxDeadZone, 1f);
-            ball.transform.localPosition = new Vector3(0f, -0.5f - 0.45f * delta / maxDeadZone, 0f);
-        }
-        */
-
         if (delta != 0f)
         {
             tapPosNow = Input.mousePosition;
@@ -123,7 +115,6 @@ public class SwipeDetection : MonoBehaviour
                 Vector3 direction = -Input.mousePosition + (Vector3)tapPosOld;
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 basket.transform.rotation = Quaternion.Euler(0f, 0f, angle + offset);
-                //basket.transform.rotation = Quaternion.Lerp(basket.transform.rotation, Quaternion.Euler(0f, 0f, angle + offset), speed * Time.deltaTime);
             }
             else
             {
@@ -135,8 +126,7 @@ public class SwipeDetection : MonoBehaviour
                 Trajectory.instance.RemBalls();
                 if (delta >= minDeadZone)
                 {
-                    float percent = Mathf.Pow(1f / (maxDeadZone) * (delta - minDeadZone / 5f), 1.1f);
-                    Debug.Log(percent);
+                    float percent = Mathf.Pow(1f / (maxDeadZone) * (delta - minDeadZone / 5f), 2f) * 4f;
                     Trajectory.instance.predict(prefabBall, ball.gameObject.transform.position, ball.gameObject.transform.up * delta * ball.GetForceValue(), percent);
                 }
             }

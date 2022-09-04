@@ -15,6 +15,7 @@ public class InBasket : MonoBehaviour
     [SerializeField] private GameObject basket;
     [SerializeField] private GameObject ballPosInBasket;
     [SerializeField] private GameObject grid;
+    [SerializeField] private SpriteRenderer[] rings;
 
     private GameObject ball;
 
@@ -44,6 +45,12 @@ public class InBasket : MonoBehaviour
 
             FindObjectOfType<BallMovement>().GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             other.gameObject.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+
+            ball.GetComponent<BallMovement>().AddGoal(basket);
+            if (ball.GetComponent<BallMovement>().RemoveGoal())
+            {
+                ChangeColorToGrey();
+            }
         }
     }
 
@@ -152,5 +159,15 @@ public class InBasket : MonoBehaviour
     public void SetInBasket(bool inBasket)
     {
         this.inBasket = inBasket;
+    }
+
+    private void ChangeColorToGrey()
+    {
+        for(int i = 0; i < 2; i++)
+        {
+            Debug.Log(new Color(Color.grey.r - 30f, Color.grey.r - 30f, Color.grey.r - 30f, 1f));
+            //rings[i].color = Color.grey;
+            rings[i].color = new Color32(164, 164, 164, 255);
+    }
     }
 }
