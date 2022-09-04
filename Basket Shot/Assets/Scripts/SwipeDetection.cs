@@ -129,7 +129,6 @@ public class SwipeDetection : MonoBehaviour
             {
                 Vector3 direction = -Input.mousePosition + (Vector3)tapPos;
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                //basket.transform.rotation = Quaternion.Euler(0f, 0f, angle + offset);
                 basket.transform.rotation = Quaternion.Lerp(basket.transform.rotation, Quaternion.Euler(0f, 0f, angle + offset), speed * Time.deltaTime);
                 tapPosOld = tapPos;
 
@@ -145,13 +144,11 @@ public class SwipeDetection : MonoBehaviour
 
         if (delta < minDeadZone)
         {
-            Debug.Log("Stop");
             inBasket.SetInBasket(true);
             ball.StopInBasket();
         }
         else
         {
-            Debug.Log("Move");
             inBasket.SetInBasket(false);
             ball.Move(delta);
         }

@@ -36,7 +36,6 @@ public class InBasket : MonoBehaviour
     {
         if (other.gameObject.tag == "Player" && timeBtwFall <= 0f)
         {
-            Debug.Log(1);
             inBasket = true;
             joinBasket = true;
             leftBasket = false;
@@ -52,7 +51,6 @@ public class InBasket : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log(0);
             inBasket = false;
             leftBasket = true;
             timeBtwFall = startTimeBtwFall;

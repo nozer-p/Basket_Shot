@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: d04e1036619c05943947b0efa159e0b9
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Gogh
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: b01773aed89c17f44a01de40e6a3bc2a, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
