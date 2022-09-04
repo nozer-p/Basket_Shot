@@ -133,7 +133,12 @@ public class SwipeDetection : MonoBehaviour
                 tapPosOld = tapPos;
 
                 Trajectory.instance.RemBalls();
-                Trajectory.instance.predict(prefabBall, ball.gameObject.transform.position, ball.gameObject.transform.up * delta * ball.GetForceValue());
+                if (delta >= minDeadZone)
+                {
+                    float percent = Mathf.Pow(1f / (maxDeadZone) * (delta - minDeadZone / 5f), 1.1f);
+                    Debug.Log(percent);
+                    Trajectory.instance.predict(prefabBall, ball.gameObject.transform.position, ball.gameObject.transform.up * delta * ball.GetForceValue(), percent);
+                }
             }
         }
     }
@@ -145,11 +150,13 @@ public class SwipeDetection : MonoBehaviour
         if (delta < minDeadZone)
         {
             inBasket.SetInBasket(true);
+            Trajectory.instance.RemBalls();
             ball.StopInBasket();
         }
         else
         {
             inBasket.SetInBasket(false);
+            Trajectory.instance.RemBalls();
             ball.Move(delta);
         }
 

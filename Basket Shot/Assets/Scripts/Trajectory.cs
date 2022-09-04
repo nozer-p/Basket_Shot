@@ -33,8 +33,6 @@ public class Trajectory : Singleton<Trajectory>
         predictionScene = SceneManager.CreateScene("Prediction", parameters);
         predictionPhysicsScene = predictionScene.GetPhysicsScene2D();
 
-        copyAllObstacles();
-
         lineRenderer = GetComponent<LineRenderer>();
     }
 
@@ -75,7 +73,7 @@ public class Trajectory : Singleton<Trajectory>
         dummyObstacles.Clear();
     }
 
-    public void predict(GameObject subject, Vector3 currentPosition, Vector3 force)
+    public void predict(GameObject subject, Vector3 currentPosition, Vector3 force, float percent)
     {
         if (currentPhysicsScene.IsValid() && predictionPhysicsScene.IsValid())
         {
@@ -102,12 +100,23 @@ public class Trajectory : Singleton<Trajectory>
                     {
                         float per = 400f;
                         GameObject ball = Instantiate(ballTrajectory, lineRenderer.GetPosition(i), Quaternion.identity);
+
+                        Color tmpColor = ball.GetComponent<SpriteRenderer>().color;
+                        tmpColor = new Color(tmpColor.r, tmpColor.g, tmpColor.b, percent);
+                        ball.GetComponent<SpriteRenderer>().color = tmpColor;
+
                         ball.transform.localScale = new Vector3(ball.transform.localScale.x - (float)i / per, ball.transform.localScale.y - (float)i / per, ball.transform.localScale.z - (float)i / per);
                         ballsTrajectory.Add(ball);
                     }
                     else
                     {
-                        ballsTrajectory.Add(Instantiate(ballTrajectory, lineRenderer.GetPosition(i), Quaternion.identity));
+                        GameObject ball = Instantiate(ballTrajectory, lineRenderer.GetPosition(i), Quaternion.identity);
+
+                        Color tmpColor = ball.GetComponent<SpriteRenderer>().color;
+                        tmpColor = new Color(tmpColor.r, tmpColor.g, tmpColor.b, percent);
+                        ball.GetComponent<SpriteRenderer>().color = tmpColor;
+
+                        ballsTrajectory.Add(ball);
                     }
                 }
             }
