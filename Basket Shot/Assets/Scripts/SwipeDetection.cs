@@ -28,11 +28,20 @@ public class SwipeDetection : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float speedTrajectory;
 
-
     private void Start()
     {
         //Time.timeScale = 0.1f;
         isMobile = Application.isMobilePlatform;
+    }
+
+    [SerializeField] private GameObject[] objects;
+
+    private void Off()
+    {
+        for(int i = 0; i < objects.Length; i++)
+        {
+            objects[i].SetActive(false);
+        }
     }
 
     private void Update()
@@ -44,10 +53,11 @@ public class SwipeDetection : MonoBehaviour
                 isSwiping = true;
                 //VisibleArrow(true);
                 tapPos = Input.mousePosition;
+                Off();
             }
             else if (Input.GetMouseButtonUp(0))
             {
-                if (inBasket != null) ResetSwipe();
+                if (inBasket != null && inBasket.GetInBasket()) ResetSwipe();
             }
         }
         else
@@ -59,15 +69,16 @@ public class SwipeDetection : MonoBehaviour
                     isSwiping = true;
                     //VisibleArrow(true);
                     tapPos = Input.GetTouch(0).position;
+                    Off();
                 }
                 else if (Input.GetTouch(0).phase == TouchPhase.Canceled || Input.GetTouch(0).phase == TouchPhase.Ended)
                 {
-                    if (inBasket != null) ResetSwipe();
+                    if (inBasket != null && inBasket.GetInBasket()) ResetSwipe();
                 }
             }
         }
 
-        if (isSwiping && basket != null)
+        if (isSwiping && basket != null && inBasket != null && inBasket.GetInBasket())
         {
             CheckSwipe();
         }
@@ -126,7 +137,7 @@ public class SwipeDetection : MonoBehaviour
                 Trajectory.instance.RemBalls();
                 if (delta >= minDeadZone)
                 {
-                    float percent = Mathf.Pow(1f / (maxDeadZone) * (delta - minDeadZone / 5f), 2f) * 4f;
+                    float percent = Mathf.Pow(1f / (maxDeadZone) * (delta - minDeadZone / 5f), 2f) * 2f;                    
                     Trajectory.instance.predict(prefabBall, ball.gameObject.transform.position, ball.gameObject.transform.up * delta * ball.GetForceValue(), percent);
                 }
             }
@@ -174,5 +185,14 @@ public class SwipeDetection : MonoBehaviour
         this.ballPosInBasket = ballPosInBasket;
         this.grid = grid;
         this.inBasket = inBasket;
+    }
+
+    public bool CheckBasket()
+    {
+        if (basket != null && inBasket != null && inBasket.GetJoinBasket())
+        {
+            return true;
+        }
+        return false;
     }
 }

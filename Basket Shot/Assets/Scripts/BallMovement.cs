@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class BallMovement : MonoBehaviour
 {
+    private GameManager gameManager;
     private Rigidbody2D rb;
     private float delta;
+
+    [SerializeField] private GameObject ballSprt;
 
     [SerializeField] private float forceValue;
     [SerializeField] private float speedRotate;
@@ -14,8 +17,22 @@ public class BallMovement : MonoBehaviour
     [SerializeField] private List<GameObject> goals = new List<GameObject>();
     private bool lastGoal;
 
+    /*
+    private bool bounceGoal = false;
+    private bool borderGoal = false;
+    private int countTouchPerfect;
+    private int countTouchWalls;
+    private List<GameObject> lastTouches = new List<GameObject>();
+    */
+    private ScoreManager scoreManager;
+
+    //private SwipeDetection swipeDetection;
+
     private void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
+        scoreManager = FindObjectOfType<ScoreManager>();
+        //swipeDetection = FindObjectOfType<SwipeDetection>();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -23,16 +40,20 @@ public class BallMovement : MonoBehaviour
     {
         if (rb.bodyType == RigidbodyType2D.Dynamic && rb.velocity != Vector2.zero)
         {
+
             if (delta == 0f) delta = 40f;
             float speed = speedRotate * delta / 10f;
             if (speed > 11f) speed = 11f;
-            transform.Rotate(0f, 0f, speed);
+            //ballSprt.transform.Rotate(0f, 0f, speed);
+            ballSprt.transform.Rotate(0f, 0f, rb.velocity.x * speedRotate);
         }
 
         if (lastGoal)
         {
             RemoveLastGoalFromList();
         }
+
+        Fail();
     }
 
     public void Move(float delta)
@@ -89,6 +110,118 @@ public class BallMovement : MonoBehaviour
             Destroy(goals[0]);
             goals.Remove(goals[0]);
             lastGoal = false;
+
+            gameManager.SpawnBasket(goals[0].transform.position);
+        }
+    }
+
+    private void Fail()
+    {
+        if (goals.Count > 0)
+        {
+            if (transform.position.y + 10f < goals[0].transform.position.y)
+            {
+                //Destroy(gameObject);
+                gameManager.RestaerLevel();
+            }
+        }
+    }
+
+    public bool IsFailForFollower()
+    {
+        if (goals.Count > 0)
+        {
+            if (transform.position.y + 1.5f < goals[0].transform.position.y)
+            {
+                return true;
+            }
+        }        
+        return false;
+    }
+    /*
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!lastTouches.Contains(collision.gameObject)) lastTouches.Add(collision.gameObject);
+
+        Debug.Log(lastTouches.Count);
+        
+        foreach (GameObject tmp in lastTouches)
+        {
+            if (tmp.CompareTag("Wall"))
+            {
+                countTouchWalls++;
+                bounceGoal = true;
+                borderGoal = false;
+                countTouchPerfect++;
+            }
+            else if (tmp.CompareTag("Border") && countTouchWalls > 0)
+            {
+                bounceGoal = true;
+                borderGoal = false;
+                countTouchPerfect = 1;
+            }
+            else if (tmp.CompareTag("Border") && countTouchWalls == 0)
+            {
+                bounceGoal = false;
+                borderGoal = true;
+                countTouchPerfect = 1;
+            }
+            else
+            {
+                countTouchWalls = 0;
+                countTouchPerfect++;
+                bounceGoal = false;
+                borderGoal = false;
+            }
+        }
+        if (lastTouches.Count > 10)
+        {
+            int i = 0;
+            foreach (GameObject tmp in lastTouches)
+            {
+                lastTouches.Remove(tmp);
+                i++;
+                if (i > 4)
+                {
+                    break;
+                }
+            }
+        }
+    }
+    */
+    public void CheckGoal()
+    {
+        /*
+        int score = 0;
+
+        if (countTouchPerfect > 1)
+        {
+            score += countTouchPerfect + 1;
+        }
+            
+        if (borderGoal && bounceGoal)
+        {
+            score += 2;
+        }
+        else if (borderGoal && !bounceGoal)
+        {
+            score = 1;
+        }
+
+        Debug.Log(score);
+
+        scoreManager.AddScore(score);
+        */
+
+        scoreManager.AddScore(1);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Star"))
+        {
+            scoreManager.AddStar();
+            Destroy(collision.gameObject);
         }
     }
 }

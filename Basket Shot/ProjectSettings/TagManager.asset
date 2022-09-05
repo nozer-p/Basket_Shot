@@ -7,6 +7,9 @@ TagManager:
   - Arrow
   - InBasket
   - Border
+  - FirstBasket
+  - Wall
+  - Star
   layers:
   - Default
   - TransparentFX

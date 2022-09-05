@@ -49,6 +49,7 @@ public class InBasket : MonoBehaviour
             ball.GetComponent<BallMovement>().AddGoal(basket);
             if (ball.GetComponent<BallMovement>().RemoveGoal())
             {
+                ball.GetComponent<BallMovement>().CheckGoal();
                 ChangeColorToGrey();
             }
         }
@@ -63,7 +64,6 @@ public class InBasket : MonoBehaviour
             timeBtwFall = startTimeBtwFall;
 
             FindObjectOfType<BallMovement>().GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-            //other.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
     }
 
@@ -103,7 +103,7 @@ public class InBasket : MonoBehaviour
         }
         else
         {
-            if (joinBasket)
+            if (joinBasket && !basket.CompareTag("FirstBasket"))
             {
                 if ((ballPosInBasket.transform.position - ball.transform.position).magnitude <= 0.1f)
                 {
@@ -143,6 +143,10 @@ public class InBasket : MonoBehaviour
                     ball.transform.position = Vector3.MoveTowards(ball.transform.position, ballPosInBasket.transform.position, speedMove * Time.deltaTime);
                 }
             }
+            else if (joinBasket && basket.CompareTag("FirstBasket"))
+            {
+                joinBasket = false;
+            }
         }
     }
 
@@ -165,9 +169,7 @@ public class InBasket : MonoBehaviour
     {
         for(int i = 0; i < 2; i++)
         {
-            Debug.Log(new Color(Color.grey.r - 30f, Color.grey.r - 30f, Color.grey.r - 30f, 1f));
-            //rings[i].color = Color.grey;
             rings[i].color = new Color32(164, 164, 164, 255);
-    }
+        }
     }
 }
